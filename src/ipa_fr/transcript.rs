@@ -32,7 +32,7 @@ pub struct PoseidonBn256Transcript {
 #[test]
 fn test_fs_poseidon_hash() {
     let constants = PoseidonConstants::new();
-    let mut preimage = vec![<Bn256Fr as ff::Field>::zero(); 2];
+    let mut preimage = vec![<Bn256Fr as ff::Field>::ZERO; 2];
     let input1 = read_field_element_le::<Fr>(&[1]).unwrap();
     let input2 = read_field_element_le::<Fr>(&[2]).unwrap();
     preimage[0] = convert_ff_ce_to_ff(input1).unwrap();
@@ -56,7 +56,7 @@ impl Bn256Transcript for PoseidonBn256Transcript {
     }
 
     fn commit_field_element(&mut self, element: &Fr) -> anyhow::Result<()> {
-        let mut preimage = vec![<Bn256Fr as ff::Field>::zero(); 2];
+        let mut preimage = vec![<Bn256Fr as ff::Field>::ZERO; 2];
         let constants = PoseidonConstants::new();
         preimage[0] = self.state;
         preimage[1] = convert_ff_ce_to_ff(*element).unwrap();
@@ -120,8 +120,8 @@ impl PoseidonBn256Transcript {
 
 // uncheck overflow
 pub fn from_bytes_le<F: ff::PrimeField>(bytes: &[u8]) -> anyhow::Result<F> {
-    let mut value = F::zero();
-    let mut factor = F::one();
+    let mut value = F::ZERO;
+    let mut factor = F::ONE;
     for b in bytes {
         value += factor * F::from(*b as u64);
         factor *= F::from(256u64);

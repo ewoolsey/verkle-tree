@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-ff = { version = "0.11.0", features = ["default", "derive"] }
+ff = { version = "0.13.0", features = ["default", "derive"] }
 group = "0.10"
 pairing_ce = "0.24.2"
 subtle = "2.4"
